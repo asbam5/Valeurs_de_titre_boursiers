@@ -27,28 +27,38 @@ def analyser_commande():
 
 def affichage():
     "affichage des valeurs boursiers"
+    list_date=[]
     get_parameters=analyser_commande()
-
+    url = f'https://pax.ulaval.ca/action/{get_parameters.symbole}/historique/'
+    
 
     if get_parameters.début==None and get_parameters.fin!=None:
         get_parameters.début=get_parameters.fin 
-
-    url = f'https://pax.ulaval.ca/action/{get_parameters.symbole}/historique/'
-
+    #### todo 1 definir la plage des dates  exemple 2019-03-01 a 2019-04-03 et la mettre dans la variables liste_date
+    debut=datetime.datetime.strptime(get_parameters.début,'%Y-%m-%d')
+    fin=datetime.datetime.strptime(get_parameters.fin,'%Y-%m-%d')
+    list_date.append(debut.date())
+    list_date.append(fin.date())
+    #print(datetime.date(get_parameters.début[0:3],get_parameters.début[4:5], get_parameters.début[6:-1]))
+    #print(datetime.date(int(get_parameters.début[0:4]),int(get_parameters.début[5:7]),int(get_parameters.début[8:])))
+    #### todo 2 verifier que si 2 date sont differen    
+    
     params = {
-        'début': '2019-02-2',
-        'fin': '2019-02-22',
+        'début': get_parameters.début,
+        'fin': get_parameters.fin,
     }
-
+    
+    
+    #####  Todo 3 transformer les date en type datetime.date
     réponse = requests.get(url=url, params=params)
     réponse = json.loads(réponse.text)
     reponse_value=réponse['historique']['2019-02-22'][get_parameters.valeur]
-    list_date=[]
-    list_date.append(get_parameters.début)
-    reponse_text_fin="titre="+get_parameters.symbole+": valeur="+get_parameters.valeur+", début="+get_parameters.début+", fin="+get_parameters.début
+    reponse_text_fin="titre="+get_parameters.symbole+": valeur="+get_parameters.valeur+", début="+str(list_date[0])+", fin="+str(list_date[-1])
     reponse_fin=[(list_date,reponse_value)]
+    
     print(reponse_text_fin,'\n',reponse_fin)
     return reponse_text_fin,reponse_fin
+
 
 affichage()
 
