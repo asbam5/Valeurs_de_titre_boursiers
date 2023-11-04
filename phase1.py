@@ -11,5 +11,13 @@ params = {
 }
 
 réponse = requests.get(url=url, params=params)
-réponse = json.loads(réponse.text)
-print(réponse)
+réponse
+## si reponse est bonne alors status_code=200
+if réponse.status_code==200:
+    réponse = json.loads(réponse.text)
+    #for clé in réponse.keys():
+    #    print(clé)
+    print(réponse['historique']['2019-02-22'])
+else:
+    pass
+    #print("error server avec un status %d et erreur %s",réponse.status_code,réponse.text)
