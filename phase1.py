@@ -1,6 +1,7 @@
 import requests
 import json
 import argparse
+import datetime
 
 
 
@@ -15,23 +16,23 @@ def analyser_commande():
         symboles à traiter, et les attributs «début», «fin» et «valeur»
         associés aux arguments optionnels de la ligne de commande.
     """
-    parser = argparse.ArgumentParser(description='Projet pour recupper des arguments de valeurs boursiers')
+    parser = argparse.ArgumentParser(description='Extraction de valeurs historiques pour un ou plusieurs symboles boursiers.')
 
-    parser.add_argument('entreprise', type=str, help='nom de entreprise')
-    parser.add_argument('date_debut', type=str, help='date debut')
-    parser.add_argument('date_fin', type=str, help='date de fin')
-
+    parser.add_argument('symbole', type=str, help="Nom d'un symbole boursier")
+    parser.add_argument('-d','--début',metavar='DATE', type=str, help='Date recherchée la plus ancienne (format: AAAA-MM-JJ)')
+    parser.add_argument('-f','--fin',metavar='DATE', type=str, help='Date recherchée la plus récente (format: AAAA-MM-JJ)')
+    parser.add_argument('-v','--valeur',default='fermeture',type=str, choices=['fermeture', 'ouverture', 'min', 'max','volume'], help='La valeur désirée (par défaut: fermeture)')
     return parser.parse_args()
 
 # utilisation de la fonction analyser_commande
 get_parameters=analyser_commande()
 # utilisation url 
-symbole =get_parameters.entreprise
+symbole =get_parameters.symbole
 url = f'https://pax.ulaval.ca/action/{symbole}/historique/'
 
 params = {
-    'début': get_parameters.date_debut,
-    'fin': get_parameters.date_fin,
+    'début': get_parameters.début,
+    'fin': get_parameters.fin,
 }
 
 réponse = requests.get(url=url, params=params)
