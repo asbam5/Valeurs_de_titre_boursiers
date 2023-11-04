@@ -24,6 +24,36 @@ def analyser_commande():
     parser.add_argument('-v','--valeur',default='fermeture',type=str, choices=['fermeture', 'ouverture', 'min', 'max','volume'], help='La valeur désirée (par défaut: fermeture)')
     return parser.parse_args()
 
+
+def affichage():
+    "affichage des valeurs boursiers"
+    get_parameters=analyser_commande()
+
+
+    if get_parameters.début==None and get_parameters.fin!=None:
+        get_parameters.début=get_parameters.fin 
+
+    url = f'https://pax.ulaval.ca/action/{get_parameters.symbole}/historique/'
+
+    params = {
+        'début': '2019-02-2',
+        'fin': '2019-02-22',
+    }
+
+    réponse = requests.get(url=url, params=params)
+    réponse = json.loads(réponse.text)
+    reponse_value=réponse['historique']['2019-02-22'][get_parameters.valeur]
+    list_date=[]
+    list_date.append(get_parameters.début)
+    reponse_text_fin="titre="+get_parameters.symbole+": valeur="+get_parameters.valeur+", début="+get_parameters.début+", fin="+get_parameters.début
+    reponse_fin=[(list_date,reponse_value)]
+    print(reponse_text_fin,'\n',reponse_fin)
+    return reponse_text_fin,reponse_fin
+
+affichage()
+
+#print(get_parameters)
+"""
 # utilisation de la fonction analyser_commande
 get_parameters=analyser_commande()
 # utilisation url 
@@ -46,3 +76,4 @@ if réponse.status_code==200:
 else:
     pass
     #print("error server avec un status %d et erreur %s",réponse.status_code,réponse.text)
+    """
