@@ -3,19 +3,35 @@ import json
 import argparse
 
 
-parser = argparse.ArgumentParser(description='On récupère les arguments')
-parser.add_argument('entreprise', type=str, help='nom de entreprise')
-parser.add_argument('date_debut', type=str, help='date debut')
-parser.add_argument('date_fin', type=str, help='date de fin')
-args = parser.parse_args()
 
+
+def analyser_commande():
+    """
+    Générer un interpréteur de commande.
+
+    Returns:
+        Un objet Namespace tel que retourné par parser.parse_args().
+        Cet objet aura l'attribut «symboles» représentant la liste des
+        symboles à traiter, et les attributs «début», «fin» et «valeur»
+        associés aux arguments optionnels de la ligne de commande.
+    """
+    parser = argparse.ArgumentParser(description='Projet pour recupper des arguments de valeurs boursiers')
+
+    parser.add_argument('entreprise', type=str, help='nom de entreprise')
+    parser.add_argument('date_debut', type=str, help='date debut')
+    parser.add_argument('date_fin', type=str, help='date de fin')
+
+    return parser.parse_args()
+
+# utilisation de la fonction analyser_commande
+get_parameters=analyser_commande()
 # utilisation url 
-symbole =args.entreprise
+symbole =get_parameters.entreprise
 url = f'https://pax.ulaval.ca/action/{symbole}/historique/'
 
 params = {
-    'début': args.date_debut,
-    'fin': args.date_fin,
+    'début': get_parameters.date_debut,
+    'fin': get_parameters.date_fin,
 }
 
 réponse = requests.get(url=url, params=params)
