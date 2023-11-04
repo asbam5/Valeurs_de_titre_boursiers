@@ -1,13 +1,21 @@
 import requests
 import json
+import argparse
+
+
+parser = argparse.ArgumentParser(description='On récupère les arguments')
+parser.add_argument('entreprise', type=str, help='nom de entreprise')
+parser.add_argument('date_debut', type=str, help='date debut')
+parser.add_argument('date_fin', type=str, help='date de fin')
+args = parser.parse_args()
 
 # utilisation url 
-symbole = 'goog'
+symbole =args.entreprise
 url = f'https://pax.ulaval.ca/action/{symbole}/historique/'
 
 params = {
-    'début': '2019-02-18',
-    'fin': '2019-02-24',
+    'début': args.date_debut,
+    'fin': args.date_fin,
 }
 
 réponse = requests.get(url=url, params=params)
