@@ -20,3 +20,5 @@ options:
   -v {fermeture,ouverture,min,max,volume}, --valeur {fermeture,ouverture,min,max,volume}
                         La valeur désirée (par défaut: fermeture)
 ``
+
+"C:/Program Files/Python310/python.exe" c:/Users/HP/OneDrive/Documents/GitHub/Valeurs_de_titre_boursiers/phase1.py -v=volume -f=2019-02-22 goog A
