@@ -20,7 +20,7 @@ def analyser_commande():
     description='Extraction de valeurs historiques pour un ou plusieurs symboles boursiers.')
 
     parser.add_argument('symbole', type=str,nargs='+',help="Nom d'un symbole boursier")
-    parser.add_argument('-d','--début',metavar='DATE', type=str, 
+    parser.add_argument('-d','--début',metavar='DATE', type=str,
     help='Date recherchée la plus ancienne (format: AAAA-MM-JJ)')
     parser.add_argument('-f','--fin',metavar='DATE', type=str,
     help='Date recherchée la plus récente (format: AAAA-MM-JJ)')
