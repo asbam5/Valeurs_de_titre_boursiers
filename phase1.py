@@ -35,23 +35,21 @@ def produire_historique():
     affichage des valeurs boursiers.
 
     Returns:
-        Note module phase1 produit l'affichage des historiques des symboles 
-        spécifiés sur la ligne de commande en respectant le format d'affichage 
+        Note module phase1 produit l'affichage des historiques des symboles
+        spécifiés sur la ligne de commande en respectant le format d'affichage
         décrit par l'énoncé du projet.
         Un object de type texte (str) avec les structures correspondant.
 
         exemple 1:
             python phase1.py -v=volume -f=2019-02-22 goog
-            
-            titre=goog: valeur=volume, début=datetime.date(2019, 2, 22), 
+            titre=goog: valeur=volume, début=datetime.date(2019, 2, 22),
             fin=datetime.date(2019, 2, 22) [(datetime.date(2019, 2, 22),
             1049545)]
         exemple 2:
             python phase1.py -d=2019-02-18 -f=2019-02-24 goog
-        
             titre=goog: valeur=fermeture, début=datetime.date(2019, 2, 18), fin=
             datetime.date(2019, 2, 24)
-            [(datetime.date(2019, 2, 19), 1118.56), (datetime.date(2019, 2, 20), 1113.8), 
+            [(datetime.date(2019, 2, 19), 1118.56), (datetime.date(2019, 2, 20), 1113.8),
             (datetime.date(2019, 2, 21), 1096.97), (datetime.date(2019, 2, 22), 1110.37)]
     """
     list_date=[]
