@@ -25,7 +25,7 @@ def analyser_commande():
     return parser.parse_args()
 
 
-def affichage():
+def produire_historique():
     "affichage des valeurs boursiers"
     list_date=[]
     get_parameters=analyser_commande()
@@ -44,15 +44,13 @@ def affichage():
         fin=datetime.datetime.strptime(get_parameters.fin,'%Y-%m-%d')
         list_date.append(debut.date())
         list_date.append(fin.date())
-        #print(datetime.date(get_parameters.début[0:3],get_parameters.début[4:5], get_parameters.début[6:-1]))
-        #print(datetime.date(int(get_parameters.début[0:4]),int(get_parameters.début[5:7]),int(get_parameters.début[8:])))
 
         params = {
             'début': get_parameters.début,
             'fin': get_parameters.fin,
         }
         
-        
+
         réponse = requests.get(url=url, params=params)
         réponse = json.loads(réponse.text)
         reponse_value=[]
@@ -69,5 +67,5 @@ def affichage():
         answer_out=answer_out+"\n"+answer
     return answer_out
 
-out=affichage()
-print(out)
+reponse=produire_historique()
+print(reponse)
