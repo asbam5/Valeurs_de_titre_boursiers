@@ -30,7 +30,7 @@ def analyser_commande():
     return parser.parse_args()
 
 
-def produire_historique():
+def produire_historique(symbole ,debut,fin,valeur='fermeture'):
     """
     affichage des valeurs boursiers.
 
@@ -53,32 +53,31 @@ def produire_historique():
             (datetime.date(2019, 2, 21), 1096.97), (datetime.date(2019, 2, 22), 1110.37)]
     """
     list_date=[]
-    get_parameters=analyser_commande()
 
     answer_out=""
-    for elemnt_symbole in get_parameters.symbole:
+    for elemnt_symbole in symbole:
 
         url = f'https://pax.ulaval.ca/action/{elemnt_symbole}/historique/'
-        if get_parameters.début is None and get_parameters.fin is not None:
-            get_parameters.début=get_parameters.fin
+        if debut is None and fin is not None:
+            debut=fin
         # check is date de fin n'existe pas il prend today
-        if  get_parameters.début is not None and get_parameters.fin is None:
-            get_parameters.fin=str(datetime.date.today())
-        list_date.append(datetime.datetime.strptime(get_parameters.début,'%Y-%m-%d').date())
-        list_date.append(datetime.datetime.strptime(get_parameters.fin,'%Y-%m-%d').date())
+        if  debut is not None and fin is None:
+            fin=str(datetime.date.today())
+        list_date.append(datetime.datetime.strptime(debut,'%Y-%m-%d').date())
+        list_date.append(datetime.datetime.strptime(fin,'%Y-%m-%d').date())
 
         params = {
-            'début': get_parameters.début,
-            'fin': get_parameters.fin,
+            'début': debut,
+            'fin': fin,
         }
         réponse = requests.get(url=url, params=params, timeout=60)
         réponse = json.loads(réponse.text)
         reponse_value=[]
         for key in réponse['historique'].keys():
             reponse_value.append((datetime.datetime.strptime(key,'%Y-%m-%d').date(),
-                                  réponse['historique'][key][get_parameters.valeur]))
+                                  réponse['historique'][key][valeur]))
         answer=""
-        answer=f"titre={elemnt_symbole}: valeur={get_parameters.valeur}, début="
+        answer=f"titre={elemnt_symbole}: valeur={valeur}, début="
         answer+=f"datetime.date({list_date[0].year}, {list_date[0].month}, {list_date[0].day}), "
         answer+=f"fin=datetime.date({list_date[1].year}, {list_date[1].month}, {list_date[1].day})"
         reponse_value.reverse()
@@ -86,5 +85,9 @@ def produire_historique():
         answer_out=answer_out+"\n"+answer
     return answer_out
 
-reponse=produire_historique()
+
+
+get_parameters=analyser_commande()
+reponse=produire_historique(get_parameters.symbole,get_parameters.début,get_parameters.fin,get_parameters.valeur)
+
 print(reponse)
