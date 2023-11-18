@@ -88,6 +88,7 @@ def produire_historique(symbole ,debut,fin,valeur='fermeture'):
 
 
 get_parameters=analyser_commande()
-reponse=produire_historique(get_parameters.symbole,get_parameters.début,get_parameters.fin,get_parameters.valeur)
+reponse=produire_historique(get_parameters.symbole,get_parameters.début,
+                            get_parameters.fin,get_parameters.valeur)
 
 print(reponse)
