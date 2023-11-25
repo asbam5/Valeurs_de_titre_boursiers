@@ -30,7 +30,7 @@ def analyser_commande():
     return parser.parse_args()
 
 
-def produire_historique(symbole ,debut,fin,valeur='fermeture'):
+def produire_historique(symbole, debut, fin, valeur='fermeture'):
     """
     affichage des valeurs boursiers.
 
@@ -62,7 +62,7 @@ def produire_historique(symbole ,debut,fin,valeur='fermeture'):
             debut=fin
         # check is date de fin n'existe pas il prend today
         if  debut is not None and fin is None:
-            fin=str(datetime.date.today())
+            fin=debut
         list_date.append(datetime.datetime.strptime(debut,'%Y-%m-%d').date())
         list_date.append(datetime.datetime.strptime(fin,'%Y-%m-%d').date())
 
@@ -87,8 +87,8 @@ def produire_historique(symbole ,debut,fin,valeur='fermeture'):
 
 
 
-get_parameters=analyser_commande()
-reponse=produire_historique(get_parameters.symbole,get_parameters.début,
-                            get_parameters.fin,get_parameters.valeur)
+#get_parameters=analyser_commande()
+#reponse=produire_historique(get_parameters.symbole,get_parameters.début,
+#                            get_parameters.fin,get_parameters.valeur)
 
-print(reponse)
+#print(reponse)

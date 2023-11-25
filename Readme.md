@@ -22,3 +22,13 @@ options:
 ``
 
 "C:/Program Files/Python310/python.exe" c:/Users/HP/OneDrive/Documents/GitHub/Valeurs_de_titre_boursiers/phase1.py -v=volume -f=2019-02-22 goog A
+
+
+
+************* Module repository.phase1
+************* Module repository.phase1
+
+C: 45, 0: Trailing whitespace (trailing-whitespace)
+C: 46,72: Trailing whitespace (trailing-whitespace)
+C: 51, 0: Trailing whitespace (trailing-whitespace)
+C: 54,89: Trailing whitespace (trailing-whitespace)
